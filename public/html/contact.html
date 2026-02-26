@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Contact Admin</title>
+</head>
+
+<body>
+
+    <div class="mainWrapper">
+        <div class="navbar">
+            <h1>File System Navigator</h1>
+            <div class="userInfo">
+                {{username}}
+            </div>
+        </div>
+        <div class="dashboardLayout">
+            <div class="sidebar">
+
+                <div>
+                    <h3>Sidebar</h3>
+                    <ul>
+                        <li><a href="/home">Dashboard</a></li>
+                        <li><a href="/help">Help & FAQ</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="sessionInfo">
+                        Session expires in {{expiry}} minutes
+                    </p>
+                </div>
+            </div>
+
+            <div class="dashboardContainer">
+                <h1>Contact Administrator</h1>
+
+                <div class="section">
+                    <form method="POST" action="/contact">
+
+                        <label>Name</label>
+                        <input type="text" name="name" required />
+
+                        <label>Email</label>
+                        <input type="email" name="email" required />
+
+                        <label>Message</label>
+                        <textarea name="message" rows="5" required></textarea>
+
+                        <button type="submit">Send Message</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

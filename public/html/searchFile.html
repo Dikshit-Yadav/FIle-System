@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search File</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>File System Navigator</h1>
+        <div class="userInfo">
+            {{username}}
+        </div>
+    </div>
+    <div class="dashboardLayout">
+
+        <div class="sidebar">
+
+            <div>
+                <h3>Sidebar</h3>
+                <ul>
+                    <li><a href="/home">Dashboard</a></li>
+                    <li><a href="/help">Help & FAQ</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="sessionInfo">
+                    Session expires in {{expiry}} minutes
+                </p>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="box">
+                <h2>File Search</h2>
+                <form onsubmit="searchFile(event)">
+                    <input type="text" name="filename" placeholder="Enter File name" class="pathInput" required />
+                    <button type="submit">Search File</button>
+                </form>
+                <p id="filePath" style="margin-top:15px;"></p>
+            </div>
+            <div class="result-box">
+                <h2 style="text-align: center;">Result Box</h2>
+                <pre>{{result}}</pre>
+            </div>
+            <div class="file-path">
+                <h2 style="text-align: center;">File Path</h2>
+                <pre>{{response}}</pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function searchFile(e) {
+            e.preventDefault();
+
+            const input = document.querySelector(".pathInput").value;
+
+            const response = await fetch("/search-structure", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ filename: input })
+            });
+
+            const text = await response.text();
+
+            document.querySelector(".file-path").style.display = "block";
+            const container = document.querySelector(".file-path");
+            const pre = container.querySelector("pre");
+
+            const lines = text.split("\n");
+
+            let formatted = "";
+
+            lines.forEach(line => {
+                if (line.startsWith("Step")) {
+                    formatted += "👉 " + line + "\n";
+                } else {
+                    formatted += line + "\n";
+                }
+            });
+
+            pre.innerText = formatted;
+            container.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>

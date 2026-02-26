@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Help & FAQ - File System Navigator</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="mainWrapper">
+        <div class="navbar">
+            <h1>File System Navigator</h1>
+            <div class="userInfo">
+                {{username}}
+            </div>
+        </div>
+        <div class="dashboardLayout">
+            <div class="sidebar">
+
+                <div>
+                    <h3>Sidebar</h3>
+                    <ul>
+                        <li><a href="/home">Dashboard</a></li>
+                        <li><a href="/help">Help & FAQ</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="sessionInfo">
+                        Session expires in {{expiry}} minutes
+                    </p>
+                </div>
+            </div>
+            <div class="dashboardContainer">
+
+                <h1>Help & Frequently Asked Questions</h1>
+
+                <div class="section">
+                    <h3>1. How to Enter a Valid Path?</h3>
+                    <ul>
+                        <li>Provide absolute path (recommended)</li>
+                        <li>Example (Windows): C:\Users\YourName\Documents</li>
+                        <li>Do NOT include quotes (" ")</li>
+                        <li>Ensure folder exists before submitting</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>2. Structure Search vs System Search</h3>
+                    <ul>
+                        <li><b>Structure Search:</b> Searches only inside the last analyzed folder.</li>
+                        <li>Fast and memory-based.</li>
+                        <li><b>System Search:</b> Scans entire system directories.</li>
+                        <li>Slower but broader.</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>3. Session Duration</h3>
+                    <ul>
+                        <li>Session remains active for 2 hours.</li>
+                        <li>After expiration, login is required again.</li>
+                        <li>Inactive sessions are automatically removed.</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>4. Common Errors & Solutions</h3>
+                    <ul>
+                        <li><b>Invalid Path:</b> Ensure correct spelling and folder exists.</li>
+                        <li><b>Session Expired:</b> Login again.</li>
+                        <li><b>Access Denied:</b> Folder permission issue.</li>
+                        <li><b>Search Not Found:</b> Try analyzing correct folder first.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

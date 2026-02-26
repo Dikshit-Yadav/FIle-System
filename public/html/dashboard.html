@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>File System Navigator - Dashboard</title>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h1>File System Navigator</h1>
+        <div class="userInfo">
+            {{username}}
+        </div>
+    </div>
+
+    <div class="dashboardLayout">
+
+        <div class="sidebar">
+
+            <div>
+                <h3>Sidebar</h3>
+                <ul>
+                    <li><a href="/home">Dashboard</a></li>
+                    <li><a href="/help">Help & FAQ</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="sessionInfo">
+                    Session expires in {{expiry}} minutes
+                </p>
+            </div>
+        </div>
+
+        <div class="container">
+
+           <div class="box">
+    <h2>How to Use System</h2>
+    <ol class="usageSteps">
+        <li><strong>Login</strong> using your registered credentials.</li>
+        
+        <li><strong>Enter Folder Path</strong> in the "Analyze Folder" section.
+            <br>Example (Windows): <code>C:\Users\YourName\Documents</code>
+        </li>
+
+        <li><strong>Click "Analyze Folder"</strong> to generate complete folder structure.</li>
+
+        <li><strong>View Results</strong> including:
+            <ul>
+                <li>Total files count</li>
+                <li>Total folders count</li>
+                <li>Hierarchical directory structure</li>
+            </ul>
+        </li>
+
+        <li><strong>Search Within Structure</strong> to find a specific file or folder.</li>
+
+        <li><strong>Follow Navigation Steps</strong> provided to locate your file easily.</li>
+    </ol>
+</div>
+            <div class="box">
+                <h2>Analyze Folder</h2>
+                <form method="POST" action="/analyze">
+                    <input type="text" name="path" placeholder="Enter Folder Path" required />
+                    <button type="submit">Analyze Folder</button>
+                </form>
+            </div>
+
+        </div>
+        <div class="chatSection">
+            <h3>Quick Help Chat</h3>
+
+            <div class="chatBox">
+                <div class="chatMessages" id="chatMessages"></div>
+
+                <div class="chatInputArea">
+                    <input type="text" id="chatInput" placeholder="Ask your question..." />
+                    <button onclick="askQuestion()">Ask</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function askQuestion() {
+            const input = document.getElementById("chatInput");
+            const question = input.value.trim();
+            if (!question) return;
+
+            const chatMessages = document.getElementById("chatMessages");
+
+            chatMessages.innerHTML += `<div class="userMsg">${question}</div>`;
+
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ question })
+            });
+
+            const text = await response.text();
+
+            chatMessages.innerHTML += `<div class="botMsg">${text}</div>`;
+
+            input.value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>
